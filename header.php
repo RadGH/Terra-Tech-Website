@@ -23,18 +23,17 @@
 						?>
 					</div>
 					
+					<?php
+					$cart_item_count = WC()->cart->get_cart_contents_count();
+					
+					if ( $cart_item_count < 1 ) $cart_text = 'My Cart';
+					else if ( $cart_item_count == 1 ) $cart_text = '1 Item';
+					else if ( $cart_item_count > 1 ) $cart_text = $cart_item_count . ' Items';
+					?>
 					<div class="cell header-right">
 						
 						<div class="subnav-row">
-							<?php
-							$cart_item_count = WC()->cart->get_cart_contents_count();
-							
-							if ( $cart_item_count < 1 ) $cart_text = 'My Cart';
-							else if ( $cart_item_count == 1 ) $cart_text = '1 Item';
-							else if ( $cart_item_count > 1 ) $cart_text = $cart_item_count . ' Items';
-							
-							?>
-							<nav class="nav-menu nav-user bloodsplat-1 logged-in">
+							<nav class="nav-menu nav-user">
 								<ul class="nav-list">
 									
 									<li class="menu-item news"><a href="<?php echo get_post_type_archive_link( 'post' ); ?>">News</a></li>
@@ -47,6 +46,8 @@
 									
 									<li class="menu-item cart"><a href="<?php echo wc_get_cart_url(); ?>"><?php echo $cart_text; ?></a></li>
 									
+									<li class="menu-item search"><a href="<?php echo add_query_arg(array('s' => ''), site_url()); ?>">Search</a></li>
+									
 								</ul>
 							</nav>
 						</div>
@@ -54,9 +55,9 @@
 						<div class="grid product-search-row">
 							
 							<div class="cell product-menu">
-								<a href="#" class="product-search-button" onclick="return false;">Products</a>
+								<a href="#" class="product-search-button" onclick="return false;"><span>Products</span></a>
 								
-								<ul class="product-dropdown">
+								<ul class="product-dropdown menu-no-js">
 									<li class="cat-item cat-item-view-all">
 										<a href="<?php echo get_post_type_archive_link('product'); ?>">All Products</a>
 									</li>
