@@ -14,6 +14,7 @@ function theme_scripts() {
 	$theme = wp_get_theme();
 	$theme_version = $theme->get( 'Version' );
 
+	wp_enqueue_style( 'woocommerce-theme', get_template_directory_uri() . '/woocommerce-custom.css', array(), $theme_version );
 	wp_enqueue_style( get_stylesheet(), get_stylesheet_uri(), array(), $theme_version );
 	wp_enqueue_script( 'main', get_template_directory_uri() . '/includes/assets/main.js' , array('jquery'), $theme_version );
 	
