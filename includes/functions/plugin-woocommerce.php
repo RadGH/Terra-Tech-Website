@@ -6,6 +6,9 @@ add_theme_support( 'woocommerce' );
 /*
 Customizations for WooCommerce
 
+	rs_remove_default_woocommerce_stylesheets()
+		Removes the general stylesheet for woocommerce. This is replaced by woocommerce-custom.css in the theme.
+
 	rs_woocommerce_body_class_for_pages()
 		Adds the "woocommerce" class to woocommerce cart and checkout screens
 
@@ -21,7 +24,7 @@ Customizations for WooCommerce
 		Adds markup before and after woocommerce, to give our theme's sidebar and other features.
 
 	rs_woocommerce_custom_title()
-		Custom WooCommerce title & breadcrumbs markup, to replace the default
+		Custom WooCommerce title, to replace the default
 
 	rs_woocommerce_disable_title_breadcrumbs()
 		Disable default title & breadcrumbs, and replace hook with a custom title
@@ -35,6 +38,21 @@ Customizations for WooCommerce
 
 // Disable WooCommerce "On Sale" div
 add_filter( 'woocommerce_sale_flash', '__return_false' );
+
+// Disable default placement of product page "Sort by" dropdown (see templates/parts/store-banner.php)
+remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+
+function rs_rename_sort_dropdown_verbiage( $options ) {
+	if ( isset($options['menu_order']) ) $options['menu_order'] = 'Default';
+	if ( isset($options['popularity']) ) $options['popularity'] = 'Most Popular';
+	if ( isset($options['rating']) ) $options['rating'] = 'Highest Rating';
+	if ( isset($options['date']) ) $options['date'] = 'Date Added';
+	if ( isset($options['price']) ) $options['price'] = 'Price (lowest first)';
+	if ( isset($options['price-desc']) ) $options['price-desc'] = 'Price (highest first)';
+	return $options;
+}
+add_filter( 'woocommerce_catalog_orderby', 'rs_rename_sort_dropdown_verbiage', 15 );
+
 
 function rs_remove_default_woocommerce_stylesheets( $enqueue_styles ) {
 	unset( $enqueue_styles['woocommerce-general'] ); // Remove the gloss
@@ -123,12 +141,15 @@ function rs_woocommerce_after() {
 add_action( 'wp', 'rs_woocommerce_template_hooks' );
 
 
-// Custom WooCommerce title & breadcrumbs
+// Custom WooCommerce title
 function rs_woocommerce_custom_title() {
+	if ( is_archive() ) return;
+	
 	?>
 	<header class="loop-header">
 		<?php
 		if ( is_archive() ) {
+			// deprecated
 			echo '<h1 class="loop-title">', get_the_archive_title(),  '</h1>';
 		}else{
 			echo '<h1 class="loop-title">', get_the_title(), '</h1>';
@@ -137,9 +158,6 @@ function rs_woocommerce_custom_title() {
 				echo '<h2 class="loop-subtitle">', $subtitle, '</h2>';
 			}
 		}
-
-		// Display woocommerce breadcrumb
-		do_action( 'rs_woocommerce_breadcrumb' );
 		?>
 	</header>
 	<?php
@@ -152,10 +170,19 @@ function rs_woocommerce_disable_title_breadcrumbs() {
 	add_filter( 'woocommerce_show_page_title', '__return_false', 40 );
 	
 	remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
-	add_action( 'rs_woocommerce_breadcrumb', 'woocommerce_breadcrumb', 20 );
 }
 add_action( 'init', 'rs_woocommerce_disable_title_breadcrumbs' );
 
+function rs_get_breadcrumb() {
+	$args = array(
+		'delimiter' => ' <span class="sep">/</span> '
+	);
+	ob_start();
+	
+	woocommerce_breadcrumb( $args );
+	
+	return ob_get_clean();
+}
 
 // Enable shortcodes on specific WooCommerce filters
 function rs_woocommerce_filter_shortcodes() {

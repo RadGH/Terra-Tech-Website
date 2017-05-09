@@ -5,6 +5,7 @@ include_once 'includes/functions/general.php'; // general functions, customizati
 include_once 'includes/functions/dashboard.php'; // logged-in customizations; includes login screen, dashboard, editor, etc
 include_once 'includes/functions/dashboard-settings.php'; // adds fields to Settings pages, incl new image sizes and email addresses
 include_once 'includes/functions/rss.php'; // improves RSS feeds, adds featured images and image size, cleanup defaults
+include_once 'includes/functions/forestry-horticulture.php'; // Adds a new taxonomy used to tag products as either Horticulture or Forestry
 include_once 'includes/functions/plugin-acf.php'; // ACF extensions
 include_once 'includes/functions/plugin-yoast.php'; // Yoast extensions
 include_once 'includes/functions/plugin-woocommerce.php'; // WooCommerce extensions
@@ -50,6 +51,10 @@ function theme_setup() {
 			'Store',
 			'WooCommerce store sidebar.',
 		),
+		'store-banner'      => array(
+			'Store banner',
+			'A banner along the top of the store.',
+		),
 		'checkout'   => array(
 			'Checkout',
 			'WooCommerce checkout page sidebar.',
@@ -73,3 +78,10 @@ function theme_setup() {
 	add_shortcode( 'year', function () { return date('Y'); } );
 }
 add_action( 'after_setup_theme', 'theme_setup' );
+
+
+function tt_register_widgets() {
+	include_once 'includes/widgets/class-tt-product-group-widget.php';
+	register_widget( 'TT_Widget_Product_Group' );
+}
+add_action( 'widgets_init', 'tt_register_widgets' );

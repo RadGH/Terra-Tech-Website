@@ -2,7 +2,15 @@ jQuery(function () {
 	init_product_search();
 
 	init_product_navigation();
+
+	init_autosubmit_forms();
 });
+
+function init_autosubmit_forms() {
+	jQuery('form.autosubmit').on('change', ':input', function(e) {
+		jQuery(this).closest('form').submit();
+	});
+}
 
 function init_product_navigation() {
 	var $product_nav = jQuery('.product-search-row .product-dropdown');

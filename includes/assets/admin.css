@@ -76,3 +76,30 @@ General WordPress
 	margin-right: 2em;
 }
 
+
+
+/* Forestry / Horticulture Metabox (Product Group) */
+#tt_product_groupdiv .category-tabs {
+	display: none !important;
+}
+
+#tt_product_group-pop {
+	display: none !important;
+}
+
+#tt_product_group-all {
+	display: block !important;
+	border: none;
+	padding: 0;
+	height: auto;
+	resize: none;
+}
+
+
+#tt_product_group-all > ul {
+	margin: 0;
+}
+
+#tt_product_group-adder {
+	display: none;
+}

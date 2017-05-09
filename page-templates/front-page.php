@@ -9,16 +9,6 @@ add_filter( "sidebar_enabled", "__return_false" ); // disable sidebar
 get_header();
 ?>
 
-<?php
-$promo = get_field( 'promo_strip', get_the_ID() );
-
-if ( $promo ) {
-	?>
-	<div class="notification-banner"><?php echo $promo; ?></div>
-	<?php
-}
-?>
-	
 	<div class="site-content">
 		<main id="main">
 			
@@ -59,14 +49,16 @@ if ( $promo ) {
 					foreach( $suffixes as $suffix ) :
 						$title = get_field( "shop_title_" . $suffix );
 						$icon = get_field( "shop_icon_" . $suffix );
+						$url = get_field( "shop_url_" . $suffix );
 						?>
 						<div class="store-cat <?php echo $suffix; ?>">
-							<a href="">
+							<a href="<?php echo esc_attr($url); ?>"><span class="screen-reader-text">Go to <?php echo $title; ?></span></a>
+							<div class="store-cat-inner">
 								<?php if ( $icon ): ?>
 									<img src="<?php echo $icon['url']; ?>" alt="<?php echo $title; ?>" />
 								<?php endif; ?>
 								<div class="cat-title"><?php echo $title; ?></div>
-							</a>
+							</div>
 						</div>
 						<?php
 					

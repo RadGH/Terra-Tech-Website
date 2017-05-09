@@ -87,6 +87,20 @@
 					
 				</div>
 				
+				<?php
+				if ( !is_front_page() ) {
+					$breadcrumb_html = rs_get_breadcrumb();
+					
+					if ( $breadcrumb_html ) {
+						?>
+						<div class="breadcrumb-row">
+							<?php echo $breadcrumb_html; ?>
+						</div>
+						<?php
+					}
+				}
+				?>
+				
 			</div>
 		
 		
@@ -94,3 +108,16 @@
 
 
 	<div id="content"<?php if ( apply_filters( "sidebar_enabled", true ) ) {echo ' class=" has-sidebar"';} ?>>
+		
+		<?php
+		$promo = get_field( 'promotional_strip', 'options' );
+		
+		if ( $promo ) {
+			?>
+			<div class="notification-banner"><?php echo $promo; ?></div>
+			<?php
+		}
+
+		if ( is_shop() || is_post_type_archive('product') || is_woocommerce() ) {
+			get_template_part( 'templates/parts/store-banner' );
+		}
