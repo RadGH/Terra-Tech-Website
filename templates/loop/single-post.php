@@ -12,10 +12,6 @@
 		}
 		?>
 
-		<div class="loop-share social-links">
-			Share this page: <?php echo implode( generate_sharing_links( 'all', array( 'after_text' => '</span>' . file_get_contents( get_template_directory() . '/includes/images/social_icons.svg' ) ) ) ); ?>
-		</div>
-
 		<div class="loop-meta">
 			<p>Posted by <span class="loop-author"><?php the_author_posts_link(); ?></span> on <span class="loop-date"><?php the_time( get_option( 'date_format' ) ); ?></span></p>
 			<?php if(get_the_category()) { ?><p>Categories: <?php the_category( ', ' ); ?></p><?php } ?>

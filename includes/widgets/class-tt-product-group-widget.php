@@ -108,11 +108,19 @@ class TT_Widget_Product_Group extends WC_Widget {
 		// Setup Current Product_group
 		$this->current_product_group   = false;
 		$this->product_group_ancestors = array();
+		$query_term = get_query_var( 'product_group' );
 		
 		if ( is_tax( 'tt_product_group' ) ) {
 			
 			$this->current_product_group   = $wp_query->queried_object;
 			$this->product_group_ancestors = get_ancestors( $this->current_product_group->term_id, 'tt_product_group' );
+			
+		}else if ( $query_term ) {
+			
+			$this->current_product_group = get_term_by( 'slug', $query_term, 'tt_product_group' );
+			if ( $this->current_product_group ) {
+				$this->product_group_ancestors = get_ancestors( $this->current_product_group->term_id, 'tt_product_group' );
+			}
 			
 		} elseif ( is_singular( 'product' ) ) {
 			
@@ -243,7 +251,7 @@ class TT_Widget_Product_Group extends WC_Widget {
 			
 			$terms = get_terms( $list_args );
 			
-			echo '<ul class="product-groups">';
+			echo '<ul class="product-groups wc-term-list">';
 			
 			if ( empty($terms) ) {
 				

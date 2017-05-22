@@ -6,6 +6,12 @@ add_theme_support( 'woocommerce' );
 /*
 Customizations for WooCommerce
 
+	rs_reorganize_woocommerce_hooks()
+		Moves/adds/deletes various woocommerce template hooks
+
+	rs_rename_sort_dropdown_verbiage()
+		Renames the values of the "Sort By" dropdown on the store page
+
 	rs_remove_default_woocommerce_stylesheets()
 		Removes the general stylesheet for woocommerce. This is replaced by woocommerce-custom.css in the theme.
 
@@ -36,11 +42,33 @@ Customizations for WooCommerce
 		Update the header image used for WooCommerce emails
 */
 
-// Disable WooCommerce "On Sale" div
-add_filter( 'woocommerce_sale_flash', '__return_false' );
-
-// Disable default placement of product page "Sort by" dropdown (see templates/parts/store-banner.php)
-remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+function rs_reorganize_woocommerce_hooks() {
+	// Disable WooCommerce "On Sale" div
+	add_filter( 'woocommerce_sale_flash', '__return_false' );
+	
+	// Disable default placement of product page "Sort by" dropdown (see templates/parts/store-banner.php)
+	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_catalog_ordering', 30 );
+	
+	// Disable the line of text that read "Showing all xxx results"
+	remove_action( 'woocommerce_before_shop_loop', 'woocommerce_result_count', 20 );
+	
+	// Move SKU below title on single products
+	// @add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+	
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+	add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 7 );
+	
+	// @add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
+	
+	// @add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+	
+	// Move price after excerpt
+	remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+	add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 25 );
+	
+	// @add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+}
+add_action( 'init', 'rs_reorganize_woocommerce_hooks' );
 
 function rs_rename_sort_dropdown_verbiage( $options ) {
 	if ( isset($options['menu_order']) ) $options['menu_order'] = 'Default';
@@ -144,6 +172,7 @@ add_action( 'wp', 'rs_woocommerce_template_hooks' );
 // Custom WooCommerce title
 function rs_woocommerce_custom_title() {
 	if ( is_archive() ) return;
+	if ( is_singular('product') ) return;
 	
 	?>
 	<header class="loop-header">
