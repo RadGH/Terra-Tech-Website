@@ -611,6 +611,9 @@ Breakpoints (270px per grid):
 @media ( max-width: 960px ) {
 	#sidebar {
 		margin-top: 40px;
+		margin: 30px -10px;
+		padding: 30px 20px 0;
+		border-top: 3px solid #e5e5e5;
 	}
 }
 
@@ -1094,7 +1097,7 @@ section.featured.products {
 	position: relative;
 }
 
-.product-search input[type="search"] {
+.product-search input[type="text"] {
 	position: relative;
 
 	display: block;
@@ -1718,6 +1721,32 @@ html #mc_embed_signup #mc-embedded-subscribe-form div.mce_inline_error {
 	.product-dropdown.menu-no-js ul.children li:hover a {
 		background: #000;
 	}
+}
+
+/* Blog page */
+.loop-archive .loop-title {
+	font-size: 32px;
+	line-height: 40px;
+}
+
+.loop-archive .loop-title a {
+	color: #4b7701;
+	text-decoration: none;
+}
+
+.loop-archive .loop-title a:hover {
+	text-decoration: underline;
+}
+
+.loop-meta {
+	color: #b4b4b4;
+	margin-top: -15px;
+	font-size: 16px;
+}
+
+.loop-meta p {
+	margin: 0 0 10px;
+	line-height: 1.35;
 }
 
 /* WooCommerce */

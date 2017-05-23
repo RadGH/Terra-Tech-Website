@@ -74,7 +74,7 @@
 						<div class="cell product-search">
 							
 							<form action="<?php echo get_post_type_archive_link('product'); ?>">
-								<input type="search" name="s" id="product-search" placeholder="What are you looking for?">
+								<input type="text" name="s" id="product-search" placeholder="What are you looking for?">
 								<button type="submit"><span class="screen-reader-text">Submit search</span></button>
 								<input type="hidden" name="post_type" value="product">
 							</form>
