@@ -168,6 +168,12 @@ function rs_woocommerce_after() {
 }
 add_action( 'wp', 'rs_woocommerce_template_hooks' );
 
+// Custom placeholder
+function tt_custom_woo_placeholder() {
+	return get_template_directory_uri() . '/includes/images/placeholder.png';
+}
+add_filter( 'woocommerce_placeholder_img_src', 'tt_custom_woo_placeholder' );
+
 
 // Custom WooCommerce title
 function rs_woocommerce_custom_title() {
