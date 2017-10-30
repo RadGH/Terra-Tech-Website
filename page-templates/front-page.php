@@ -74,8 +74,8 @@ get_header();
 					if ( !$title ) $title = 'Featured Products';
 					
 					// Prefer featured products, fall back to any products if none found (just the container markup is returned, so check character count)
-					$products_shortcode = do_shortcode('[featured_products per_page="4" columns="4" orderby="rand" order="rand"]');
-					if ( strlen($products_shortcode) < 100 ) $products_shortcode = do_shortcode('[products per_page="4" columns="4" orderby="rand" order="rand"]');
+					$products_shortcode = do_shortcode('[featured_products per_page="8" columns="4" orderby="rand" order="rand"]');
+					if ( strlen($products_shortcode) < 100 ) $products_shortcode = do_shortcode('[products per_page="8" columns="4" orderby="rand" order="rand"]');
 					?>
 					<h2><?php echo $title; ?></h2>
 					<?php echo $products_shortcode; ?>
