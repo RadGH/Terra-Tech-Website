@@ -135,6 +135,7 @@
 .woocommerce .quantity .qty {
 	width: 4.2em;
 	text-align: left;
+	padding-right: 2px;
 }
 
 .woocommerce div.product {
