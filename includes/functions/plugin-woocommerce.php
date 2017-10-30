@@ -174,7 +174,6 @@ function tt_custom_woo_placeholder() {
 }
 add_filter( 'woocommerce_placeholder_img_src', 'tt_custom_woo_placeholder' );
 
-
 // Custom WooCommerce title
 function rs_woocommerce_custom_title() {
 	if ( is_archive() ) return;
