@@ -261,6 +261,14 @@
 	box-sizing: content-box
 }
 
+.woocommerce div.product div.images.woocommerce-product-gallery .flex-control-nav {
+	padding: 5px 0;
+}
+
+.woocommerce div.product div.images.woocommerce-product-gallery .flex-control-nav li {
+	margin: 0 5px;
+}
+
 .woocommerce div.product div.images .flex-control-thumbs {
 	overflow: hidden;
 	zoom: 1;
@@ -1037,6 +1045,18 @@ td.product-quantity .quantity:before {
 	margin: .125em 0 .125em .25em
 }
 
+.woocommerce-account #main,
+.woocommerce-account .has-sidebar #main {
+	width: auto;
+	float: none;
+}
+
+.woocommerce table.my_account_orders .button {
+	padding: 0 5px;
+	display: inline;
+	margin-right: 6px;
+}
+
 .woocommerce table.woocommerce-MyAccount-downloads td, .woocommerce table.woocommerce-MyAccount-downloads th {
 	vertical-align: top;
 	text-align: center
@@ -1807,6 +1827,11 @@ button.pswp__button--zoom:hover {
 
 #add_payment_method .cart-collaterals .cross-sells ul.products li.product, .woocommerce-cart .cart-collaterals .cross-sells ul.products li.product, .woocommerce-checkout .cart-collaterals .cross-sells ul.products li.product {
 	margin-top: 0
+}
+
+.woocommerce .cart-collaterals .cart_totals, .woocommerce-page .cart-collaterals .cart_totals {
+	width: auto;
+	float: none;
 }
 
 #add_payment_method .checkout .col-2 h3#ship-to-different-address, .woocommerce-cart .checkout .col-2 h3#ship-to-different-address, .woocommerce-checkout .checkout .col-2 h3#ship-to-different-address {
