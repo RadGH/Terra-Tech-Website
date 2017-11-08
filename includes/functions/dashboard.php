@@ -152,10 +152,6 @@ function login_page_custom_css() {
 					width: <?php echo $src[1]; ?>px;
 					height: <?php echo $src[2]; ?>px;
 					background-size: contain;
-					
-					position: relative;
-					transform: translateX(-50%);
-					left: 50%;
 				}
 			</style>
 			<?php
